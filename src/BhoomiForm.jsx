@@ -16,6 +16,10 @@ import { User, MapPin, FileText, Send } from 'lucide-react';
 
 export default function BhoomiForm() {
   const [formData, setFormData] = useState({
+    applicantName: '',
+    applicantPhone: '',
+    applicantAddress: '',
+    applicantGuardian: '',
     subdivision: '',
     circle: '',
     halka: '',
@@ -27,16 +31,17 @@ export default function BhoomiForm() {
     subject: '',
     details: '',
     fileName: '',
+    firFileName: '',
   });
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleFileUpload = (e) => {
+  const handleFileUpload = (field, e) => {
     const file = e.target.files[0];
     if (file) {
-      handleChange('fileName', file.name);
+      handleChange(field, file.name);
     }
   };
 
@@ -48,22 +53,67 @@ export default function BhoomiForm() {
         {/* Header */}
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-slate-900">Submit Request</h1>
-          <p className="text-muted-foreground mt-1">District: Munger, Bihar</p>
+          <p className="text-muted-foreground mt-1">District: {import.meta.env.VITE_DISTRICT || 'Munger'}, Bihar</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Form Column */}
           <div className="lg:col-span-2 space-y-6">
             
-            {/* Location Details Card */}
+            {/* Applicant Details Card */}
             <Card className="border-none shadow-sm ring-1 ring-slate-200">
               <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
                 <CardTitle className="flex items-center gap-2 text-lg">
-                  <MapPin className="h-5 w-5 text-slate-400" />
-                  Location Details
+                  <User className="h-5 w-5 text-slate-400" />
+                  Applicant Details
                 </CardTitle>
               </CardHeader>
               <CardContent className="pt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Name *</Label>
+                  <Input
+                    placeholder="Enter applicant name"
+                    value={formData.applicantName}
+                    onChange={(e) => handleChange('applicantName', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Phone No. *</Label>
+                  <Input
+                    placeholder="Enter phone number"
+                    value={formData.applicantPhone}
+                    onChange={(e) => handleChange('applicantPhone', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Address *</Label>
+                  <Input
+                    placeholder="Enter full address"
+                    value={formData.applicantAddress}
+                    onChange={(e) => handleChange('applicantAddress', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Father/Husband Name *</Label>
+                  <Input
+                    placeholder="Enter father/husband name"
+                    value={formData.applicantGuardian}
+                    onChange={(e) => handleChange('applicantGuardian', e.target.value)}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Bhoomi Ka Byora Card */}
+            <Card className="border-none shadow-sm ring-1 ring-slate-200">
+              <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <FileText className="h-5 w-5 text-slate-400" />
+                  Bhoomi Ka Byora
+                </CardTitle>
+                <CardDescription>Enter the official land records.</CardDescription>
+              </CardHeader>
+              <CardContent className="pt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <Label>Subdivision *</Label>
                   <Select onValueChange={(val) => handleChange('subdivision', val)}>
@@ -77,7 +127,7 @@ export default function BhoomiForm() {
                     </SelectContent>
                   </Select>
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label>Circle *</Label>
                   <Select onValueChange={(val) => handleChange('circle', val)}>
@@ -119,19 +169,7 @@ export default function BhoomiForm() {
                     </SelectContent>
                   </Select>
                 </div>
-              </CardContent>
-            </Card>
 
-            {/* Bhoomi Ka Byora Card */}
-            <Card className="border-none shadow-sm ring-1 ring-slate-200">
-              <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
-                <CardTitle className="flex items-center gap-2 text-lg">
-                  <FileText className="h-5 w-5 text-slate-400" />
-                  Bhoomi Ka Byora (Land Details)
-                </CardTitle>
-                <CardDescription>Enter the official land records.</CardDescription>
-              </CardHeader>
-              <CardContent className="pt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <Label>Khata Sankhya *</Label>
                   <Input 
@@ -151,9 +189,9 @@ export default function BhoomiForm() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Plot No. (Khesra) *</Label>
+                  <Label>Khesra *</Label>
                   <Input 
-                    placeholder="Enter Plot no." 
+                    placeholder="Enter Khesra no." 
                     value={formData.plot}
                     onChange={(e) => handleChange('plot', e.target.value)}
                   />
@@ -212,7 +250,7 @@ export default function BhoomiForm() {
                     <div className="flex flex-col items-center text-sm text-slate-600">
                       <label htmlFor="file-upload" className="relative cursor-pointer rounded-md font-medium text-slate-900 focus-within:outline-none focus-within:ring-2 focus-within:ring-slate-900 focus-within:ring-offset-2 hover:text-slate-700">
                         <span className="bg-white border px-4 py-2 rounded-md shadow-sm">Choose File</span>
-                        <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleFileUpload} />
+                        <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={(e) => handleFileUpload('fileName', e)} />
                       </label>
                       <p className="mt-3">or drag and drop</p>
                     </div>
@@ -220,6 +258,25 @@ export default function BhoomiForm() {
                     {formData.fileName && (
                       <p className="text-sm font-medium text-slate-900 mt-4 bg-white px-3 py-1 rounded-md border inline-block">
                         Selected: {formData.fileName}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>FIR (if registered)</Label>
+                  <div className="rounded-md border border-dashed border-slate-300 p-6 flex flex-col items-center justify-center text-center bg-slate-50/50 transition-colors hover:bg-slate-100/50">
+                    <div className="flex flex-col items-center text-sm text-slate-600">
+                      <label htmlFor="fir-upload" className="relative cursor-pointer rounded-md font-medium text-slate-900 focus-within:outline-none focus-within:ring-2 focus-within:ring-slate-900 focus-within:ring-offset-2 hover:text-slate-700">
+                        <span className="bg-white border px-4 py-2 rounded-md shadow-sm">Choose File</span>
+                        <input id="fir-upload" name="fir-upload" type="file" className="sr-only" onChange={(e) => handleFileUpload('firFileName', e)} />
+                      </label>
+                      <p className="mt-3">or drag and drop</p>
+                    </div>
+                    <p className="text-xs text-slate-500 mt-1">PDF or image up to 10MB</p>
+                    {formData.firFileName && (
+                      <p className="text-sm font-medium text-slate-900 mt-4 bg-white px-3 py-1 rounded-md border inline-block">
+                        Selected: {formData.firFileName}
                       </p>
                     )}
                   </div>
@@ -243,6 +300,28 @@ export default function BhoomiForm() {
                 
                 <div className="flex gap-4 border-b pb-2">
                   <div className="w-1/2 flex flex-col gap-1 border-r border-slate-200 pr-4">
+                    <span className="text-slate-500">Applicant</span>
+                    <span className="font-medium text-slate-900 truncate">{formData.applicantName || "—"}</span>
+                  </div>
+                  <div className="w-1/2 flex flex-col gap-1">
+                    <span className="text-slate-500">Phone</span>
+                    <span className="font-medium text-slate-900 truncate">{formData.applicantPhone || "—"}</span>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 border-b pb-2">
+                  <div className="w-1/2 flex flex-col gap-1 border-r border-slate-200 pr-4">
+                    <span className="text-slate-500">Address</span>
+                    <span className="font-medium text-slate-900 truncate">{formData.applicantAddress || "—"}</span>
+                  </div>
+                  <div className="w-1/2 flex flex-col gap-1">
+                    <span className="text-slate-500">Father/Husband</span>
+                    <span className="font-medium text-slate-900 truncate">{formData.applicantGuardian || "—"}</span>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 border-b pb-2">
+                  <div className="w-1/2 flex flex-col gap-1 border-r border-slate-200 pr-4">
                     <span className="text-slate-500">Subdivision</span>
                     <span className="font-medium text-slate-900 truncate">{formData.subdivision || "—"}</span>
                   </div>
@@ -251,7 +330,7 @@ export default function BhoomiForm() {
                     <span className="font-medium text-slate-900 truncate">{formData.circle || "—"}</span>
                   </div>
                 </div>
-                
+
                 <div className="flex gap-4 border-b pb-2">
                   <div className="w-1/2 flex flex-col gap-1 border-r border-slate-200 pr-4">
                     <span className="text-slate-500">Halka</span>
@@ -290,6 +369,11 @@ export default function BhoomiForm() {
                 <div className="flex justify-between pb-2">
                   <span className="text-slate-500">Attachment</span>
                   <span className="font-medium text-slate-900 text-right max-w-[150px] truncate">{formData.fileName || "—"}</span>
+                </div>
+
+                <div className="flex justify-between pb-2">
+                  <span className="text-slate-500">FIR</span>
+                  <span className="font-medium text-slate-900 text-right max-w-[150px] truncate">{formData.firFileName || "—"}</span>
                 </div>
 
                 <div className="pt-4 mt-2 border-t flex justify-end">

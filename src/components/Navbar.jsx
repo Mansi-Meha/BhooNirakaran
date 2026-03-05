@@ -11,7 +11,7 @@ export function Navbar() {
         </Button>
         <div className="flex items-center gap-2">
           <Building2 className="h-6 w-6 text-slate-900" />
-          <span className="font-semibold text-lg tracking-tight text-slate-900">BhooSamadhan</span>
+          <span className="font-semibold text-lg tracking-tight text-slate-900">BhooNirakaran</span>
         </div>
       </div>
       <div className="flex items-center gap-2">
