@@ -1,16 +1,45 @@
-# React + Vite
+# BhooNirakaran
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+BhooNirakaran is a web platform designed to help manage and resolve land disputes efficiently.  
+It provides a digital system where citizens can submit complaints and authorities can track and resolve disputes.
 
-Currently, two official plugins are available:
+## Features
+- Land dispute complaint submission
+- Dashboard for officials
+- Status tracking of cases
+- Guidelines and notices section
+- User-friendly interface
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
+- React
+- Vite
+- JavaScript
+- CSS
 
-## React Compiler
+## Installation
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Clone the repository
 
-## Expanding the ESLint configuration
+git clone https://github.com/Mansi-Meha/BhooNirakaran.git
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Go to the project folder
+
+cd BhooNirakaran
+
+Install dependencies
+
+npm install
+
+Run the project
+
+npm run dev
+
+## Project Structure
+
+src/
+components/
+pages/
+assets/
+
+## Contributors
+- Mansi Meha
